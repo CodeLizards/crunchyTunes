@@ -108,3 +108,9 @@ input {
 .chatButton {
   right: 0px;
 }
+
+.dictatorIs {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  padding: 0 20px;
+  font-size: 1.4rem;
+}

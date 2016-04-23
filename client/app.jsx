@@ -121,8 +121,11 @@ class App extends React.Component {
       <div>
         <Layout className='layout'>
           <AppBar className="appBar" >
+            <div>
+            <div className='dictatorIs'>The ruling music dictator is {this.state.dictator}</div>
             <Button label="Like"  icon='favorite' accent onClick={ () => this.moodHandler(0) } />
             <Button label="Overthrow" onClick={ () => this.moodHandler(1) } />
+            </div>
             <SongPlayer track = {this.state.currentTrack} />
             <span className='chatButton'><Button icon={this.state.sidebarPinned ? 'close' : 'inbox'} label='Chat' onClick={ this.toggleSidebar.bind(this) }/></span>
           </AppBar>
