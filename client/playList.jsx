@@ -12,6 +12,7 @@ class PlayList extends React.Component {
     super(props);
     this.state = {
       tracks: [],
+      color: 'yellowgreen'      
     };
   }
 
@@ -32,13 +33,33 @@ class PlayList extends React.Component {
     socket.emit('track play', track);
   }
 
+
+  componentWillReceiveProps (nextProps) {
+    console.log('next Props', this.props);
+    if(nextProps.temperature >= 99){
+      this.setState({color: '#F43636'})
+    } else if (nextProps.temperature >= 95) {
+      this.setState({color: '#FF5722'});
+    } else if (nextProps.temperature >= 80) {
+      this.setState({color: '#F49636'});
+    } else if(nextProps.temperature >= 50){
+      this.setState({color: '#FFE007'});
+    } else {
+      this.setState({color: '#8BC34A'});
+      
+    }
+  }
+
+
+
+
   render() {
+    {console.log('PROPS', this.props)}
     return (
       <List selectable ripple className="list">
         <ListSubHeader caption="Dictator's Playlist" />
-         <div className='temperature'></div>
-
-        {this.state.tracks.map((track) =>
+         <div style={{width: this.props.temperature*2.2, backgroundColor: this.state.color, maxWidth: '280px'}} className='temperature'></div>
+         {this.state.tracks.map((track) =>
           <ListItem
             caption={`${track.songTitle}\n${track.creator}`}
             avatar={track.imagePath}

@@ -18,7 +18,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      temperature: '',
+      temperature: 0,
       username: '',
       userId: '',
       dictator: '',
@@ -104,6 +104,7 @@ class App extends React.Component {
 
   toggleSidebar() {
     this.setState({ sidebarPinned: !this.state.sidebarPinned});
+    this.setState({temperature: this.state.temperature+20})
   }
 
   moodHandler(sentiment) {
@@ -123,11 +124,12 @@ class App extends React.Component {
                     pinned={true}
                     className='navDrawer'
                     >
-            <PlayList handleCardPlay = {this.handleCardPlay.bind(this)} />
+            <PlayList temperature={this.state.temperature} handleCardPlay = {this.handleCardPlay.bind(this)} />
           </NavDrawer>
             <Panel>
           <AppBar className="appBar" >
             <SongPlayer track = {this.state.currentTrack} />
+            <span className='chatButton'><Button icon={this.state.sidebarPinned ? 'close' : 'inbox'} label='Chat' onClick={ this.toggleSidebar.bind(this) }/></span>
           </AppBar>
           <Nav className="searchBar" handleSearch = { this.handleSearch.bind(this) } searching={ this.state.searching } />
           <Button label="Like"  icon='favorite' accent onClick={ () => this.moodHandler(0) } />

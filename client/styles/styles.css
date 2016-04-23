@@ -42,7 +42,8 @@ body{
 }
 .appBar {
   position: fixed;
-  width:50%;
+  width:100%;
+  background-color: #8BC34A !important;
 }
 .style__circular___2yZZn {
   padding-top: 40px !important;
@@ -78,11 +79,19 @@ body{
   padding: 20px;
 }
 .temperature {
-  width: 50px;
+  width: 0px;
   background-color: blue;
   height: 20px;
+  margin: 10px;
+  transition: width 1s, background-color 1s;
+  border-radius: 25px;
 }
 input {
   border: 5px solid yellowgreen;
   width: 300px;
+}
+
+.chatButton {
+  position: inherit;
+  right: 0px;
 }
