@@ -120,6 +120,12 @@ class App extends React.Component {
     return (
       <div>
         <Layout className='layout'>
+          <AppBar className="appBar" >
+            <Button label="Like"  icon='favorite' accent onClick={ () => this.moodHandler(0) } />
+            <Button label="Overthrow" onClick={ () => this.moodHandler(1) } />
+            <SongPlayer track = {this.state.currentTrack} />
+            <span className='chatButton'><Button icon={this.state.sidebarPinned ? 'close' : 'inbox'} label='Chat' onClick={ this.toggleSidebar.bind(this) }/></span>
+          </AppBar>
           <NavDrawer active={true}
                     pinned={true}
                     className='navDrawer'
@@ -127,10 +133,6 @@ class App extends React.Component {
             <PlayList temperature={this.state.temperature} handleCardPlay = {this.handleCardPlay.bind(this)} />
           </NavDrawer>
             <Panel>
-          <AppBar className="appBar" >
-            <SongPlayer track = {this.state.currentTrack} />
-            <span className='chatButton'><Button icon={this.state.sidebarPinned ? 'close' : 'inbox'} label='Chat' onClick={ this.toggleSidebar.bind(this) }/></span>
-          </AppBar>
           <Nav className="searchBar" handleSearch = { this.handleSearch.bind(this) } searching={ this.state.searching } />
           <Button label="Like"  icon='favorite' accent onClick={ () => this.moodHandler(0) } />
           <Button label="Not so much" onClick={ () => this.moodHandler(1) } />

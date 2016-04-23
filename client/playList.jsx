@@ -54,7 +54,6 @@ class PlayList extends React.Component {
 
 
   render() {
-    {console.log('PROPS', this.props)}
     return (
       <List selectable ripple className="list">
         <ListSubHeader caption="Dictator's Playlist" />

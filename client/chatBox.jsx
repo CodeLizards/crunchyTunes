@@ -13,12 +13,12 @@ class ChatBox extends React.Component {
 
   updateMessages(message) {
     //get new message from user and update it on their page
-    var msgsCopy = this.state.messages.slice();
+    let msgsCopy = this.state.messages.slice();
     msgsCopy.push(message);
     this.setState({'messages': msgsCopy});
 
     //automatic scroll to bottom so user sees new message
-    var domnode = ReactDOM.findDOMNode(this.refs.chats);
+    let domnode = ReactDOM.findDOMNode(this.refs.chats);
     ReactDOM.findDOMNode(this.refs.chats).scrollTop = domnode.scrollHeight;
   }
 
