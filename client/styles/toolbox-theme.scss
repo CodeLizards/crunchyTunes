@@ -24,6 +24,8 @@ $card-font-size: $font-size-small !default;
 .card {
   position: relative;
   cursor: pointer;
+  box-shadow: none !important;
+  border: 2px solid yellowgreen !important;
 }
 
 .card-title {
