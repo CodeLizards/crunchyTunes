@@ -39,12 +39,18 @@ var dataMethods = {
   },
 
   getMoods: (store, callback) => {
+    console.log('store', store);
     var moodArray = _.map(store, 'mood');
     var totalMood = _.reduce(moodArray, (memo, num) => memo + num, 0);
+    console.log('MOODARRAY', moodArray);
+    console.log('totalMOOD', totalMood);
     callback(totalMood);
+
   },
 
   setTemperature: (store, mood) => {
+    // START TOMORROW CHECK MOOD MATH NOT WORKING
+    //possible becaue not returning store or manipulating it orsomehtin
     var temperature = Math.floor((mood / store.userData.length) * 100);
     store.temperature = temperature;
   },

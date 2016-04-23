@@ -38,16 +38,19 @@ module.exports = (server) => {
       socket.username = username;
       socket.emit('user joined', socket.username);
       user = {
-        userName: username,
+        username: username,
         userId: socket.id,
         isDictator: false,
         mood: 0,
       };
+
       if (sessionData.userData.length === 0) {
-        socket.emit('assign dictator');
         user.isDictator = true;
         sessionData.dictator = user;
+        socket.emit('you are dictator', sessionData.dictator);
       }
+
+      socket.broadcast.emit('new dictator', sessionData.dictator);
       dataMethods.addToStore(user, sessionData.userData);
 
     });
@@ -60,7 +63,9 @@ module.exports = (server) => {
         dataMethods.assignDictator(user, sessionData);
         var dictatorId = sessionData.dictator.userId;
         if (io.sockets.connected[dictatorId]) {
-          io.to(dictatorId).emit('assign dictator');
+          io.to(dictatorId).emit('you are dictator', sessionData.dictator);
+          socket.broadcast.emit('new dictator', sessionData.dictator);
+
           // i do not think the line below is necessary but haven't tested extensively
           // io.sockets.connected[dictatorId].broadcast.emit('assign dictator');
         }
@@ -77,8 +82,8 @@ module.exports = (server) => {
       });
 
       dataMethods.getMoods(sessionData.userData, (mood) => {
-        dataMethods.setTemperature(sessionData, mood);
 
+        dataMethods.setTemperature(sessionData, mood);
         socket.broadcast.emit('temperatureUpdate', { temperature: sessionData.temperature });
         socket.emit('temperatureUpdate', { temperature: sessionData.temperature });
         dataMethods.getMoods(sessionData.userData, (moods) => {
@@ -87,10 +92,10 @@ module.exports = (server) => {
           if (!isDictatorSafe) {
             dataMethods.assignDictator(sessionData);
             dataMethods.resetPlayerMoods(sessionData.userData);
-
+            socket.broadcast.emit('new dictator', sessionData.dictator);
             var dictatorId = sessionData.dictator.userId;
             if (io.sockets.connected[dictatorId]) {
-              io.sockets.connected[dictatorId].emit('assign dictator');
+              io.sockets.connected[dictatorId].emit('you are dictator', sessionData.dictator);
             }
           }
         });
